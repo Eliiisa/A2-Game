@@ -1,0 +1,30 @@
+SET NAMES utf8;
+SET time_zone = '+00:00';
+SET foreign_key_checks = 0;
+SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
+
+CREATE DATABASE `JEUX` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_bin */;
+USE `JEUX`;
+
+CREATE TABLE `SCORE` (
+  `SCO_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `SCO_NOM` varchar(250) COLLATE utf8_bin NOT NULL,
+  `SCO_SCORE` int(11) NOT NULL,
+  PRIMARY KEY (`SCO_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+
+CREATE TABLE `THEME` (
+  `THE_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `THE_NOM` varchar(250) COLLATE utf8_bin NOT NULL,
+  `THE_BACKGROUND` varchar(250) COLLATE utf8_bin NOT NULL,
+  `THE_OBJET` varchar(250) COLLATE utf8_bin NOT NULL,
+  `THE_EASTEREGGS` varchar(250) COLLATE utf8_bin NOT NULL,
+  `THE_ANIMEAU1` varchar(250) COLLATE utf8_bin NOT NULL,
+  `THE_ANIMEAU2` varchar(250) COLLATE utf8_bin NOT NULL,
+  `THE_ANIMEAU3` varchar(250) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`THE_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+INSERT INTO `THEME` (`THE_ID`, `THE_NOM`, `THE_BACKGROUND`, `THE_OBJET`, `THE_EASTEREGGS`, `THE_ANIMEAU1`, `THE_ANIMEAU2`, `THE_ANIMEAU3`) VALUES
+(1,	'Jungle',	'assets/img/Jungle.jpg',	'assets/img/banane.png',	'',	'assets/img/monkey1.png',	'assets/img/monkey2.png',	'assets/img/monkey3.png');

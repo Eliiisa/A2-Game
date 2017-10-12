@@ -22,7 +22,7 @@ img {
   z-index: 1; }
   .container .score-board .score .count_remaining {
     position: absolute;
-    left: 51%;
+    left: 50%;
     top: 110px;
     transform: translate(-65%, 0);
     font-size: 2em;
@@ -41,20 +41,20 @@ img {
 .container .monkey2 {
   bottom: -250px;
   left: 50%;
-  z-index: 3; }
+  z-index: 3;
+  border-radius: 10%}
 .container .monkey3 {
-  right: -400px;
-  bottom: 200px;
+  right: -45%;
+  bottom: 25%;
   transform: rotate(-90deg);
-  z-index: 3; 
-  width: 450px;
+  z-index: 3;
+  width: 60% 
 }
 
 .bananas {
   opacity: 1;
   z-index: 2; 
 }
-
 
 /*# sourceMappingURL=style.css.map */
 .counter{

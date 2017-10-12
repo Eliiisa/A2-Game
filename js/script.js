@@ -6,6 +6,18 @@ $( document ).ready(function() {
     var rightMonkeyTarget = $('.monkey3');
     var scorePanel = $('.score');
     var victoryPanel = $('.victory');
+    var points = 15;
+    var vid = $('#dk');
+    vid.get(0).volume = 0.3;
+    $(document).click(function(event) {
+        if (!$(event.target).closest('.bananas').length){
+            $('#scream').get(0).currentTime = 2;
+            $('#scream').get(0).play();
+        } else {
+              $('#nice').get(0).play();
+        }
+        // body...
+    });
 
     var startgame = $('.start-game');
     var seconds = 30;
@@ -25,8 +37,6 @@ $( document ).ready(function() {
 
 
     initBananas();
-    var bananasTarget = $('.bananas');
-    countBananasRemaining();
     score();
     $('.bananas').hide();
     $('.score').hide();
@@ -47,22 +57,30 @@ $( document ).ready(function() {
 
     rightMonkeyTarget.mouseenter(function () {
         $(this).stop(true,false).animate({
-            "right": "-50px"
-        }, 1000, function () {
-            // Nothing
-        });
-    });
-    rightMonkeyTarget.mouseleave(function () {
-        $(this).stop(true,false).animate({
-            "right": "-400px"
+            "right": "-6%"
         }, 1000, function () {
             // Nothing
         });
     });
 
-    bananasTarget.click(function () {
-        $(this).remove();
-        countBananasRemaining();
+    rightMonkeyTarget.mouseleave(function () {
+        $(this).stop(true,false).animate({
+            "right": "-45%"
+        }, 1000, function () {
+            // Nothing
+        });
+    });
+
+    /**
+     * Pas de tableau
+     * Que une banane
+     * A chaque clic la banane change de position 
+     * 
+     */
+
+    $('.bananas').click(function () {
+        points--;
+        moveBananas();
         score();
         compteurBanane = compteurBanane + 1;
         if (victory()) {
@@ -71,7 +89,6 @@ $( document ).ready(function() {
             seconds = 0;
         }
     });
-
     // Functions
     function leftMonkey() {
         leftMonkeyTarget.animate({
@@ -80,38 +97,52 @@ $( document ).ready(function() {
             leftMonkeyTarget.animate({
                 "left": "-330px"
             }, 1000, function () {
-                // Nothing
+                // Nothing3
             });
         });
 
     }
-    function bottomMonkey(e) {
+
+    function bananas() {
+        var newPos = makeNewPosition();
+        $(this).animate({ top: newPos[0], left: newPos[1] }, 1000, function(){
+            bananas();
+        });
+    }
+
+    function bottomMonkey() {
         var newPos = makeNewPosition();
         bottomMonkeyTarget.animate({ top: newPos[0], left: newPos[1] }, 1000, function(){
             bottomMonkey();
         });
 
     }
-    function initBananas() {
-        var j = 15;
-        for(var i = 1; i<=j;i++){
-            var divSize = 50;
-            var posX = (Math.random() * ($('body').width() - divSize)).toFixed();
-            var posY = (Math.random() * ($('body').height() - divSize)).toFixed();
-            $newImg = $('<img class="bananas" src="assets/img/banane.png" alt="Banane">').css({
-                'left': posX + 'px',
-                'top': posY + 'px'
-            });
-            $newImg.appendTo($('body'));
-        }
 
+    function initBananas() {
+        var divSize = 50;
+        var posX = (Math.random() * 100);
+        var posY = (Math.random() * 100);
+        $newImg = $('<img class="bananas" src="' + $("#objet").val() + '" alt="Banane">').css({
+            'left': posX + '%',
+            'top': posY + '%'
+        });
+        $newImg.appendTo($('body'));
     }
+
+    function moveBananas () {
+        var newPos = makeNewPosition();
+        $('.bananas').hide().css({
+            'left': newPos[1] + 'px',
+            'top': newPos[0] + 'px'
+        }).fadeIn(500);
+    }
+
     function score () {
-        $('.count_remaining').html(countBananasRemaining())
+        $('.count_remaining').html(points)
     }
 
     function victory() {
-        if (countBananasRemaining () === 0)
+        if (points === 0)
             return true;
         return false;
     }
@@ -121,12 +152,16 @@ $( document ).ready(function() {
         return scoreFinal;
 
     }
+    
     function endScore() {
         $('.score-final').html(countScoreFinal(compteurBanane));
     }
+
     function countBananasRemaining () {
-        return $('.bananas').length;
+        return bananasTab.length;
     }
+
+
     function makeNewPosition(){
 
         var h = $(window).height() - 50;
@@ -139,7 +174,6 @@ $( document ).ready(function() {
     }
 
     //timer
-    
     function countdown() {
         
         function tick() {
@@ -157,12 +191,9 @@ $( document ).ready(function() {
                 leftMonkeyTarget.hide();
                 rightMonkeyTarget.hide();
                 endScore();
-                
-                
             }
         }
         tick();
     }
-
 
 });
